@@ -1,0 +1,134 @@
+<Project Sdk="Microsoft.NET.Sdk.Web" ToolsVersion="15.0">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>APS_Prograin</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="System\**" />
+    <Compile Remove="wwwroot\lib\**" />
+    <Content Remove="System\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="System\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <None Remove="System\**" />
+    <None Remove="wwwroot\lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20180808172105_UserWarehouse.cs" />
+    <Compile Remove="Migrations\20180808172105_UserWarehouse.Designer.cs" />
+    <Compile Remove="Migrations\20180808172851_UserWarehouse.cs" />
+    <Compile Remove="Migrations\20180808172851_UserWarehouse.Designer.cs" />
+    <Compile Remove="Migrations\20180816141117_tableSAP.cs" />
+    <Compile Remove="Migrations\20180816141117_tableSAP.Designer.cs" />
+    <Compile Remove="Migrations\20180821182231_deductioncode.cs" />
+    <Compile Remove="Migrations\20180821182231_deductioncode.Designer.cs" />
+    <Compile Remove="Migrations\20180914180059_log.cs" />
+    <Compile Remove="Migrations\20180914180059_log.Designer.cs" />
+    <Compile Remove="Migrations\20180928200714_TicketTriggerOnNew.cs" />
+    <Compile Remove="Migrations\20180928200714_TicketTriggerOnNew.Designer.cs" />
+    <Compile Remove="Migrations\20181001182225_ProductVis.cs" />
+    <Compile Remove="Migrations\20181001182225_ProductVis.Designer.cs" />
+    <Compile Remove="Migrations\20181008021101_MergedMigrations.cs" />
+    <Compile Remove="Migrations\20181008021101_MergedMigrations.Designer.cs" />
+    <Compile Remove="Migrations\20181008122808_Initial.cs" />
+    <Compile Remove="Migrations\20181008122808_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="4.0.187" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" />
+    <PackageReference Include="MySql.Data" Version="8.0.12" />
+    <PackageReference Include="NLog" Version="4.5.9" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.6.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.2" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.1.0" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2018.2.620" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Error.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Error.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Label.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Label.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Message.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Message.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Areas\Fitness\Views\Chart\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Fitness\Views\Upload\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Gestion\Views\Log\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="bower.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="bundleconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Views\Shared\_LayoutMin.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Error.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Error.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Label.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Label.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Message.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DejaVuSans.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "jquery": "2.2.0",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "pnotify": "3.2.1",
+    "jquery-ui": "1.12.1",
+    "metisMenu": "v2.7.3",
+    "modernizr": "v2010.07.06dev",
+    "animate.css": "3.5.2",
+    "bootstrap": "v3.3.7",
+    "fontawesome": "5.3.1"
+  },
+  "resolutions": {
+    "jquery": ">=1.8",
+    "bootstrap": "v4.0.0"
+  }
+}

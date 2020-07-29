@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFile" xml:space="preserve">
+    <value>Une erreur s'est produite sur l'ajout du fichier</value>
+  </data>
+  <data name="AjoutRoles" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'ajout des rôles</value>
+  </data>
+  <data name="ChampLongeurMinMax" xml:space="preserve">
+    <value>Le champ {0} doit être une chaîne d'une longueur minimale de {1} et d'une longueur maximale de {2}.</value>
+  </data>
+  <data name="ChampLongueurMax" xml:space="preserve">
+    <value>Le champ {0} doit être une chaîne d'une longueur maximale de {1}.</value>
+  </data>
+  <data name="ChampObligatoire" xml:space="preserve">
+    <value>Le champ {0} est obligatoire</value>
+  </data>
+  <data name="ChampsDifferents" xml:space="preserve">
+    <value>'{0}' et '{1}' doivent être identiques</value>
+  </data>
+  <data name="ChangementMotPasseIncorrect" xml:space="preserve">
+    <value>Le mot de passe courant est incorrect ou le nouveau est invalide</value>
+  </data>
+  <data name="ConnectionIncorrect" xml:space="preserve">
+    <value>Tentative de connexion incorrecte</value>
+  </data>
+  <data name="CourrielInvalide" xml:space="preserve">
+    <value>Le format de l'adresse courriel est invalide</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>La création a produit une erreur</value>
+  </data>
+  <data name="CreationUtilisateur" xml:space="preserve">
+    <value>Une erreur est survenue lors de la création de l'utilisateur</value>
+  </data>
+  <data name="DateInferieur" xml:space="preserve">
+    <value>'{0}' est inférieur à {1}</value>
+  </data>
+  <data name="DateInferieureAujourdhui" xml:space="preserve">
+    <value>'{0}' doit être inférieure ou égale à aujourd'hui</value>
+  </data>
+  <data name="DateSQL" xml:space="preserve">
+    <value>'{0}' est une date invalide</value>
+  </data>
+  <data name="DateSuperieurOuEgalAncienne" xml:space="preserve">
+    <value>'{0}' doit être supérieur ou égal à l'ancienne</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Une erreur est survenue qui prévient la suppression</value>
+  </data>
+  <data name="Doublons" xml:space="preserve">
+    <value>Il ne peut pas avoir deux {0} identiques</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>La grosseur maximale du fichier est 2 Mo</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>Les types de fichiers acceptés sont: JPG, GIF, PNG et PDF</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>'{0}' doit avoir le format suivant: {1}</value>
+  </data>
+  <data name="FormatUsername" xml:space="preserve">
+    <value>Le nom d'utilisateur doit uniquement contenir des lettres sans accents et des chiffres</value>
+  </data>
+  <data name="Generale" xml:space="preserve">
+    <value>Une erreur est survenue.</value>
+  </data>
+  <data name="Generique" xml:space="preserve">
+    <value>*** Aucun texte dans Errors.resx ***</value>
+  </data>
+  <data name="GetExportationGrille" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'exportation de la grille.</value>
+  </data>
+  <data name="LongueurMinimum" xml:space="preserve">
+    <value>'{0}' doit avoir au moins {1} caractères</value>
+  </data>
+  <data name="NomFichierTropLong" xml:space="preserve">
+    <value>Le nom du fichier est trop long</value>
+  </data>
+  <data name="NouveauMotPasseDifferent" xml:space="preserve">
+    <value>Le nouveau mot de passe et la confirmation de mot de passe sont différent</value>
+  </data>
+  <data name="OuExclusif" xml:space="preserve">
+    <value>'{0}' et '{1}' ne peuvent être saisis en même temps</value>
+  </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Page Introuvable</value>
+  </data>
+  <data name="PlageInvalide" xml:space="preserve">
+    <value>'{0}' doit être compris entre {1} et {2}</value>
+  </data>
+  <data name="PropertyValueInvalid" xml:space="preserve">
+    <value>La valeur '{0}' est invalide pour '{1}'</value>
+  </data>
+  <data name="Rapport" xml:space="preserve">
+    <value>Un erreur s'est produite dans la production du rapport</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Une erreur est survenue pendant la lecture</value>
+  </data>
+  <data name="Requis" xml:space="preserve">
+    <value>'{0}' est requis</value>
+  </data>
+  <data name="RequisDependant" xml:space="preserve">
+    <value>'{0}' est requis lorsque '{1}' est spécifié</value>
+  </data>
+  <data name="RequisOu" xml:space="preserve">
+    <value>'{0}' ou '{1}' est requis</value>
+  </data>
+  <data name="Sauvegarde" xml:space="preserve">
+    <value>Une erreur est survenue lors de la sauvegarde</value>
+  </data>
+  <data name="SauvegardeUtilisateur" xml:space="preserve">
+    <value>Une erreur est survenue lors de la sauvegarde de l'utilisateur</value>
+  </data>
+  <data name="SuperieurOuEgal" xml:space="preserve">
+    <value>'{0}' doit être supérieur ou égal à '{1}'</value>
+  </data>
+  <data name="SuppressionRoles" xml:space="preserve">
+    <value>Une erreur est survenue lors de la suppression des rôles</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Une erreur est survenue qui prévient la mise à jour</value>
+  </data>
+  <data name="UsagerExisteDeja" xml:space="preserve">
+    <value>Le nom d'usager entré est déjà utilisé</value>
+  </data>
+  <data name="UsagerMotPasseIncorrect" xml:space="preserve">
+    <value>L'usager ou le mot de passe fourni est incorrect</value>
+  </data>
+</root>

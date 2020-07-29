@@ -1,0 +1,120 @@
+﻿@using APS.Areas.Fitness.Models
+@using APS.Helpers
+@using Kendo.Mvc.UI
+@using APS.Resources
+@model UploadModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = Label.Rapport;
+}
+@section Scripts {
+    <script src="~/js/Fitness/Upload.js"></script>
+    <script src="~/js/CommonScripts.js"></script>
+}        
+@section Styles
+{
+    <style>
+        #tabstrip {
+            height: 470px;
+        }
+        .k-content {
+            border-color: rgba(0,0,0,.08);
+            color: #656565;
+            background-color: #fff;
+        }
+        .k-content {
+            outline: 0;
+        }
+    </style>
+}
+
+<div class="content grid-wrapper">
+    <h2>@ViewBag.Title</h2>
+    <div id="tabstrip">
+        <ul>
+            <li class="k-state-active">
+                Déplacement en Général
+            </li>
+            <li>
+                Sports
+            </li>
+        </ul>
+
+        <div class="grid-wrapper">
+            @(Html.Kendo().Chart<UploadDataVM>()
+                .Name("chart")
+                .Title("Spain electricity production (GWh)")
+                .Legend(legend => legend
+                    .Position(ChartLegendPosition.Top)
+                )
+                .DataSource(dataSource => dataSource
+                    //.Ajax()
+                    .ServerOperation(true)
+                    .Events(events =>
+                    {
+                        events.Error("errorHandler");
+                    })
+                    .Model(model =>
+                    {
+                        model.Id(p => p.Id);
+                    })
+                    //.Group(g=>g.Add(model => model.ActivityType))
+                    .Read(read => read.Action("Read", "Upload", new { Area = "Fitness" })))
+                .Series(series => series.Area(m=>m.Date)
+                    .Field("DistanceKm")
+                    .CategoryField("ActivityType")
+                    .XField("Date")
+                )
+                .CategoryAxis(axis => axis
+                    .Labels(labels => labels.Rotation(-90))
+                    .Justify()
+                    .Crosshair(c => c.Visible(true))
+                )
+                .ValueAxis(axis => axis.Numeric()
+                    .Labels(labels => labels.Format("{0:N0}"))
+                    .MajorUnit(1000)
+                )
+                .Tooltip(tooltip => tooltip
+                    .Visible(true)
+                    .Shared(true)
+                    .Format("{0:N0}")
+                )
+                )
+        </div>
+        <div class="grid-wrapper">
+
+            @(Html.Kendo().Grid<UploadDataVM>()
+                .Name("Grid")
+                .Events(e => { e.ExcelExport("resetGridAfterExport"); })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Id).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(150);
+                    columns.Bound(c => c.Date).Format("{0:yyyy-MM-dd}");
+                    columns.Bound(c => c.ActivityType);
+                    columns.Bound(c => c.DistanceKm).Format("{0:n2}").Width(181);
+                })
+                .StandardGridConfiguration()
+                .ToolBar(t =>
+                {
+                    t.Custom().Text("Exporter en Excel").HtmlAttributes(new { href = "#", onclick = "exportToExcel()" });
+                }).Excel(excel => excel.AllPages(true).Filterable(true))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .ServerOperation(true)
+                    .Events(events =>
+                    {
+                        events.Error("errorHandler");
+                        events.RequestEnd("saveHandler");
+                    })
+                    .Model(model =>
+                    {
+                        model.Id(p => p.Id);
+                    })
+                    .Read(read => read.Action("Read", "Upload", new { Area = "Fitness" }))
+                    .PageSize(17)
+                    .Sort(s => s.Add(x => x.Id).Descending())
+                )
+                )
+        </div>
+    </div>
+</div>

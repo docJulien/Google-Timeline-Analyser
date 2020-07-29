@@ -1,0 +1,163 @@
+﻿@using APS.Areas.Fitness.Models
+@using APS.Helpers
+@using Kendo.Mvc.UI
+@using APS.Resources
+@model UploadModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = Label.Upload;
+}
+@section Scripts {
+    <script src="~/js/Fitness/Upload.js"></script>
+    <script src="~/js/CommonScripts.js"></script>
+}        
+@section Styles
+{
+    <style>
+        #tabstrip {
+            height: 470px;
+        }
+        .note-section.k-content {
+            box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+        }
+        .note-section {
+            text-align: center;
+            line-height: 4em;
+        }
+        .note-section {
+            margin: 0 auto 4.5em;
+            padding: 3em;
+            border: 1px solid rgba(20,53,80,0.14);
+        }
+        .k-content {
+            border-color: rgba(0,0,0,.08);
+            color: #656565;
+            background-color: #fff;
+        }
+        .k-content {
+            outline: 0;
+        }
+    </style>
+}
+
+<div class="content grid-wrapper">
+    <h2>@ViewBag.Title</h2>
+    <div id="urlClearData" data-url='@Url.Action("ClearData", "Upload", new { area= "Fitness"})'></div>
+
+    <div id="tabstrip">
+        <ul>
+            <li class="k-state-active">
+                Téléversement
+            </li>
+            <li>
+                Configuration Grille Dynamique
+            </li>
+            <li>
+                Grille Dynamique
+            </li>
+            <li>
+                Données Brutes
+            </li>
+        </ul>
+
+        <div class="k-content">
+            <div class="note-section k-content">
+                <h3>Note</h3>
+                Les fichiers doivent être en format JSON de Google Takeout, Location History, Semantic Location History.
+                <br />
+                Les dates qui sont en conflit avec des données existantes écraseront ces dernières.
+            </div>
+            @(Html.Kendo().Upload()
+                .Name("files")
+                .Async(a => a
+                    .Save("Save", "Upload")
+                    .AutoUpload(true)
+                )
+                .Validation(validation =>
+                {
+                    validation.AllowedExtensions(Model.AllowedExtensions);
+                })
+                .Events(events =>
+                {
+                    events.Error("errorHandler");
+                    events.Complete("Upload.OnComplete");
+                })
+                )
+        </div>
+        <div>
+            @(Html.Kendo().PivotConfigurator()
+                        .Name("configurator")
+                        .Filterable(true)
+                        .Sortable()
+            )
+        </div>
+        <div class="grid-wrapper">
+            @(Html.Kendo().PivotGrid<UploadDataVM>()
+                .Name("pivotgrid")
+                .Configurator("#configurator")
+                .ColumnWidth(120)
+                .Filterable(true)
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Transport(transport => transport.Read("Read", "Upload"))
+                    .Schema(schema => schema
+                        .Cube(cube => cube
+                            .Dimensions(dimensions =>
+                            {
+                                dimensions.Add(model => model.Date).Caption("Tout jours");
+                                dimensions.Add(model => model.Month).Caption("Tout mois");
+                                dimensions.Add(model => model.Year).Caption("Toutes années");
+                                dimensions.Add(model => model.ActivityType).Caption("Toutes Activités");
+                            })
+                            .Measures(measures => 
+                                measures.Add("DistanceKm").Field(model => model.DistanceKm).AggregateName("sum").Format("{0:n2}"))
+                        ))
+                    .Columns(columns =>
+                    {
+                        columns.Add("Year").Expand(true);
+                        columns.Add("Month");
+                    })
+                    .Rows(rows => rows.Add("ActivityType").Expand(true))
+                    .Measures(measures => measures.Values("DistanceKm"))
+
+                )
+                )
+        </div>
+        <div class="grid-wrapper">
+
+            @(Html.Kendo().Grid<UploadDataVM>()
+                .Name("Grid")
+                .Events(e => { e.ExcelExport("resetGridAfterExport"); })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Id).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(150);
+                    columns.Bound(c => c.Date).Format("{0:yyyy-MM-dd}");
+                    columns.Bound(c => c.ActivityType);
+                    columns.Bound(c => c.DistanceKm).Format("{0:n2}").Width(181);
+                })
+                .StandardGridConfiguration()
+                .ToolBar(t =>
+                {
+                    t.Custom().Text("Effacer toutes les données de votre compte").HtmlAttributes(new { href = "#", onclick = "Upload.ClearData()" });
+                    t.Custom().Text("Exporter en Excel").HtmlAttributes(new { href = "#", onclick = "exportToExcel()" });
+                }).Excel(excel => excel.AllPages(true).Filterable(true))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .ServerOperation(true)
+                    .Events(events =>
+                    {
+                        events.Error("errorHandler");
+                        events.RequestEnd("saveHandler");
+                    })
+                    .Model(model =>
+                    {
+                        model.Id(p => p.Id);
+                    })
+                    .Read(read => read.Action("Read", "Upload", new { Area = "Fitness" }))
+                    .PageSize(17)
+                    .Sort(s => s.Add(x => x.Id).Descending())
+                )
+                )
+        </div>
+    </div>
+</div>
