@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using NLog.Web;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace APS
 {
@@ -11,22 +9,22 @@ namespace APS
         public static void Main(string[] args)
         {
             // NLog: setup the logger first to catch all errors
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            //var logger = NLog.bui NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
-                logger.Debug("init main");
+                //logger.Debug("init main");
                 BuildWebHost(args).Run();
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //NLog: catch setup errors
-                logger.Error(ex, "Stopped program because of exception");
+                //logger.Error(ex, "Stopped program because of exception");
                 throw;
             }
             finally
             {
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
+                //NLog.LogManager.Shutdown();
             }
         }
 
@@ -38,7 +36,7 @@ namespace APS
                     logging.ClearProviders();
                     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
                 })
-                .UseNLog()  // NLog: setup NLog for Dependency injection
+                //.UseNLog()  // NLog: setup NLog for Dependency injection
                 .Build();
     }
 }

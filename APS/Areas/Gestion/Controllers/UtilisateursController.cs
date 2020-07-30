@@ -48,9 +48,9 @@ namespace APS.Areas.Gestion.Controllers
         [ExceptionMessages(ResourceKey = "Read")]
         public IActionResult Read([DataSourceRequest] DataSourceRequest request)
         {
-            List<InformationUtilisateurViewModel> resultat = CommonMethods.GetUserList();
+            List<InformationUtilisateurViewModel> result = CommonMethods.GetUserList();
             
-            return Json(resultat.ToDataSourceResult(request));
+            return Json(result.ToDataSourceResult(request)); //, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

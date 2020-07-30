@@ -2,9 +2,6 @@
 using APS.Model;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace APS.Data
 {
@@ -47,9 +44,9 @@ namespace APS.Data
             {
                 user = new ApplicationUser();
                 user.UserName = "admin";
-                user.Email = "captainloknar@gmail.com";
+                user.Email = "your@email.com";
                 user.FirstName = "Julien";
-                user.LastName = "DLB";
+                user.LastName = "Doc";
                 user.Langue = "FR";
                 user.DateHeureMAJ = DateTime.Now;
 

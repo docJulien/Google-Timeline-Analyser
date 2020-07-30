@@ -1,5 +1,3 @@
-using APS.Helpers;
-using APS.Middlewares;
 using APS.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,12 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 
 namespace APS
 {
@@ -41,7 +38,9 @@ namespace APS
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             // Add application services.
 
-            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddMvc().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ContractResolver =
+                    new DefaultContractResolver());
 
             services.Configure<IISOptions>(options =>
             {
@@ -54,7 +53,7 @@ namespace APS
         
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
                 UserManager<ApplicationUser> userManager,
                 RoleManager<IdentityRole> roleManager)
         {
@@ -62,8 +61,8 @@ namespace APS
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
+                //app.UseBrowserLink();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -77,23 +76,20 @@ namespace APS
             }
             
             app.UseStaticFiles();
-
+            app.UseRouting();
             app.UseAuthentication();
-
+            app.UseAuthorization();
             APS.Data.SeedModule.SeedData(userManager, roleManager);
 
             app.UseRequestLocalization(BuildLocalizationOptions());
-
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-
-                routes.MapRoute(
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

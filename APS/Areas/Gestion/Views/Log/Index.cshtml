@@ -1,0 +1,55 @@
+﻿@using APS.Areas.Gestion.Models
+@using APS.Helpers
+@using Kendo.Mvc.UI
+@using APS.Resources
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = Label.Log;
+}
+<style>
+    .dragIcon {
+        cursor: move;
+    }
+</style>
+<div class="grid-wrapper">
+    <h2>@ViewBag.Title</h2>
+
+    @(Html.Kendo().Grid<LogVM>
+        ()
+        .Name("Grid")
+        .Events(e => { e.ExcelExport("resetGridAfterExport"); })
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Callsite).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(150);
+            columns.Bound(c => c.Logger).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("equals").SuggestionOperator(FilterType.Contains).Delay(100))).Width(150);
+            columns.Bound(c => c.Logged).Width(181);
+
+            columns.ForeignKey(p => p.Level, (System.Collections.IEnumerable)ViewData["levels"], "Name", "Name").Width(153);
+            columns.Bound(c => c.Message).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100)));
+            columns.Bound(c => c.Exception).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(330);
+            columns.Bound(c => c.RemoteAddress).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(200);
+            columns.Bound(c => c.UserName).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(150).Hidden();
+        })
+        .StandardGridConfiguration()
+        .ToolBar(t =>
+        {
+            t.Custom().Text("Exporter en Excel").HtmlAttributes(new { href = "#", onclick = "exportToExcel()" });
+        }).Excel(excel => excel.AllPages(true).Filterable(true))
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(true)
+        .Events(events =>
+        {
+            events.Error("errorHandler");
+            events.RequestEnd("saveHandler");
+        })
+        .Model(model =>
+        {
+            model.Id(p => p.Id);
+        })
+        .Read(read => read.Action("Read", "Log", new { Area = "Gestion" }))
+            .PageSize(17)
+            .Sort(s=>s.Add(x=>x.Logged).Descending())
+        ))
+</div>
