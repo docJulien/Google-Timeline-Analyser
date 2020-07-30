@@ -4,8 +4,6 @@ using APS.Middlewares;
 using System.Linq;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Collections.Generic;
 
 namespace APS.Controllers
 {
@@ -24,12 +22,6 @@ namespace APS.Controllers
 
            
         }
-
-        //[AllowAnonymous]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
 
         [AllowAnonymous]
         public IActionResult Error()

@@ -14,18 +14,14 @@ namespace APS.Extensions
             {
                 foreach (var filter in filters)
                 {
-                    var descriptor = filter as FilterDescriptor;
-                    if (descriptor != null)
+                    switch (filter)
                     {
-                        result.Add(descriptor);
-                    }
-                    else
-                    {
-                        var compositeFilterDescriptor = filter as CompositeFilterDescriptor;
-                        if (compositeFilterDescriptor != null)
-                        {
+                        case FilterDescriptor descriptor:
+                            result.Add(descriptor);
+                            break;
+                        case CompositeFilterDescriptor compositeFilterDescriptor:
                             result.AddRange(compositeFilterDescriptor.FilterDescriptors.ToFilterDescriptor());
-                        }
+                            break;
                     }
                 }
             }

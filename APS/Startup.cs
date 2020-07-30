@@ -61,8 +61,6 @@ namespace APS
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
-                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -79,7 +77,7 @@ namespace APS
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            APS.Data.SeedModule.SeedData(userManager, roleManager);
+            Data.SeedModule.SeedData(userManager, roleManager);
 
             app.UseRequestLocalization(BuildLocalizationOptions());
             app.UseEndpoints(endpoints =>
