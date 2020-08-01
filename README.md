@@ -15,6 +15,8 @@ Notes:
 -the distance from my json files seemed to be in 10s of feet. I'm converting to km.
 
 TODO features:
+-test the Distance values
+-use reference table for activities instead of a string field in ImportData
 -Put all labels and texts in ressources
 -make application use a language cookie and make it bilingual
 -set English as default language, change the startup setting it as french
