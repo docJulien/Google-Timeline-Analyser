@@ -11,9 +11,15 @@ Go to Google Takeout, and request Google Maps Timeline json extraction.
 The files provided is a huge json file, and semantics summary files, the latter being used in this application to build a summary.
 Import multiple files in the Fitness section 
 
+Notes:
+-the distance from my json files seemed to be in 10s of feet. I'm converting to km.
+
 TODO features:
+-test the Distance values
+-use reference table for activities instead of a string field in ImportData
 -Put all labels and texts in ressources
 -make application use a language cookie and make it bilingual
 -set English as default language, change the startup setting it as french
 -fix the home page scroller (update kendo?)
 -make a report page showing a graph for physical activities ( under construction )
+-import location files too
