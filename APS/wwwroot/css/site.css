@@ -59,6 +59,9 @@ a.navbar-brand:focus {
     outline: none;
     text-decoration: none;
 }
+li.customLi.dropdown.active {
+    background: #9a6a3c;
+}
 
 .container-fluid .text-muted {
     margin: 20px 0;
