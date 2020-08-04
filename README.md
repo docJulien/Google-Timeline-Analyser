@@ -2,7 +2,7 @@
 
 Installation Requirements:
 -MySQL, create a database and make sure the connection string in appsettings.json
--Kendo MVC Core 2009.3 or later. Import the kendo mvc wrapper in the project and include kendo in the wwwroot/lib folder. It is configured in the libman.json already.
+-Kendo MVC Core 2019.3 or later. Import the kendo mvc wrapper in the project and include kendo in the wwwroot/lib folder. It is configured in the libman.json already.
 -Initial data is seeded, an admin account and roles are created on application start. 
    admin:Secret1234!
 
