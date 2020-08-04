@@ -24,7 +24,7 @@
     },
     {
       "provider": "filesystem",
-      "library": "wwwroot/lib/kendo-ui/",
+      "library": "C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R3 2019",
       "destination": "wwwroot/lib/kendo-ui/"
     },
     {

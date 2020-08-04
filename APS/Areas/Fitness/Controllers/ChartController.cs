@@ -1,14 +1,7 @@
-﻿using Kendo.Mvc.UI;
-using APS.Model;
-using APS.Methods.Common;
+﻿using APS.Methods.Fitness;
 using APS.Middlewares;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using APS.Areas.Fitness.Models;
-using Kendo.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace APS.Areas.Fitness.Controllers
@@ -18,7 +11,7 @@ namespace APS.Areas.Fitness.Controllers
     public class ChartController : Controller
     {
         private readonly ILogger _logger;
-        public ChartController(ILogger<UploadController> logger)
+        public ChartController(ILogger<ChartController> logger)
         {
             _logger = logger;
         }
@@ -28,6 +21,25 @@ namespace APS.Areas.Fitness.Controllers
             {
                 return View();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>        
+        [ExceptionMessages(ResourceKey = "ReadSport")]
+        public IActionResult ReadSport()
+        {
+            return Json(Chart.GetSportData(User.Identity.Name));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>        
+        [ExceptionMessages(ResourceKey = "ReadTransport")]
+        public IActionResult ReadTransport()
+        {
+            return Json(Chart.GetTransportData(User.Identity.Name));
         }
     }
 }

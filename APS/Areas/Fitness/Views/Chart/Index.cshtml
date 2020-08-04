@@ -1,14 +1,23 @@
 ﻿@using APS.Areas.Fitness.Models
-@using APS.Helpers
 @using Kendo.Mvc.UI
 @using APS.Resources
-@model UploadModel
 @{
     Layout = "_Layout";
     ViewBag.Title = Label.Rapport;
 }
 @section Scripts {
-    <script src="~/js/Fitness/Upload.js"></script>
+    <script language="jscript">
+        $(document).ready(function () {
+            $("#tabstrip").kendoTabStrip({
+                animation: { open: { effects: "fadeIn" } }
+            });
+
+            //tests
+            //var chart = $("#chartTransport").data("kendoChart");
+            //chart.dataSource.filter({ field: "Year", operator: "gte", value: 2020 });
+            //chart.refresh();
+        });
+    </script>
     <script src="~/js/CommonScripts.js"></script>
 }        
 @section Styles
@@ -33,7 +42,7 @@
     <div id="tabstrip">
         <ul>
             <li class="k-state-active">
-                Déplacement en Général
+                Transport
             </li>
             <li>
                 Sports
@@ -41,80 +50,78 @@
         </ul>
 
         <div class="grid-wrapper">
-            @(Html.Kendo().Chart<UploadDataVM>()
-                .Name("chart")
-                .Title("Spain electricity production (GWh)")
-                .Legend(legend => legend
-                    .Position(ChartLegendPosition.Top)
-                )
+
+            @(Html.Kendo().Chart<TransportDataVM>()
+                .Name("chartTransport")
+                .Title("Transport")
                 .DataSource(dataSource => dataSource
-                    //.Ajax()
-                    .ServerOperation(true)
-                    .Events(events =>
+                    .Read(read => read.Action("ReadTransport", "Chart"))
+                    .Sort(sort =>
                     {
-                        events.Error("errorHandler");
+                        sort.Add(model => model.MonthDate);
                     })
-                    .Model(model =>
-                    {
-                        model.Id(p => p.Id);
-                    })
-                    //.Group(g=>g.Add(model => model.ActivityType))
-                    .Read(read => read.Action("Read", "Upload", new { Area = "Fitness" })))
-                .Series(series => series.Area(m=>m.Date)
-                    .Field("DistanceKm")
-                    .CategoryField("ActivityType")
-                    .XField("Date")
+                )
+                .SeriesDefaults(s=> s.Line()
+                    .Style(ChartLineStyle.Smooth)
+                    .CategoryField("MonthDate")
+                    .MissingValues(ChartAreaMissingValues.Zero)
+                    .Stack(false)
+                )
+                .Series(series => {
+                    series.Line(model => model.InBus).Name("Bus (km)");
+                    series.Line(model => model.InPassengerVehicle).Name("Voiture (km)");
+                    series.Line(model => model.InSubway).Name("Métro (km)");
+                    series.Line(model => model.InTrain).Name("Train (km)");
+                    series.Line(model => model.Motorcycling).Name("Moto (km)");
+                    series.Line(model => model.Flying).Name("Avion (km)");
+                })
+                .Legend(legend => legend
+                    .Position(ChartLegendPosition.Bottom)
                 )
                 .CategoryAxis(axis => axis
-                    .Labels(labels => labels.Rotation(-90))
-                    .Justify()
-                    .Crosshair(c => c.Visible(true))
-                )
-                .ValueAxis(axis => axis.Numeric()
-                    .Labels(labels => labels.Format("{0:N0}"))
-                    .MajorUnit(1000)
-                )
-                .Tooltip(tooltip => tooltip
-                    .Visible(true)
-                    .Shared(true)
-                    .Format("{0:N0}")
-                )
-                )
+                    .Type(ChartCategoryAxisType.Date)
+                    .BaseUnit(ChartAxisBaseUnit.Months)
+                    .Field("MonthDate")
+                    .Labels(labels => labels.Format("yyyy-MM"))
+                    .Line(line => line.Visible(false))
+                    .MajorGridLines(lines => lines.Visible(false))
+                ))
         </div>
         <div class="grid-wrapper">
-
-            @(Html.Kendo().Grid<UploadDataVM>()
-                .Name("Grid")
-                .Events(e => { e.ExcelExport("resetGridAfterExport"); })
-                .Columns(columns =>
-                {
-                    columns.Bound(c => c.Id).Filterable(x => x.Cell(y => y.ShowOperators(false).Operator("contains").SuggestionOperator(FilterType.Contains).Delay(100))).Width(150);
-                    columns.Bound(c => c.Date).Format("{0:yyyy-MM-dd}");
-                    columns.Bound(c => c.ActivityType);
-                    columns.Bound(c => c.DistanceKm).Format("{0:n2}").Width(181);
-                })
-                .StandardGridConfiguration()
-                .ToolBar(t =>
-                {
-                    t.Custom().Text("Exporter en Excel").HtmlAttributes(new { href = "#", onclick = "exportToExcel()" });
-                }).Excel(excel => excel.AllPages(true).Filterable(true))
+            @(Html.Kendo().Chart<ReportDataVM>()
+                .Name("chartSport")
+                .Title("Sports")
                 .DataSource(dataSource => dataSource
-                    .Ajax()
-                    .ServerOperation(true)
-                    .Events(events =>
+                    .Read(read => read.Action("ReadSport", "Chart"))
+                    .Sort(sort =>
                     {
-                        events.Error("errorHandler");
-                        events.RequestEnd("saveHandler");
+                        sort.Add(model => model.MonthDate);
                     })
-                    .Model(model =>
-                    {
-                        model.Id(p => p.Id);
-                    })
-                    .Read(read => read.Action("Read", "Upload", new { Area = "Fitness" }))
-                    .PageSize(17)
-                    .Sort(s => s.Add(x => x.Id).Descending())
                 )
+                .SeriesDefaults(s=>s.Area()
+                    .CategoryField("MonthDate")
+                    .MissingValues(ChartAreaMissingValues.Zero)
+                    .Stack(true)
                 )
+                .Series(series =>
+                {
+                    series.Area(model => model.Cycling).Name("Vélo (km)");
+                    series.Area(model => model.Hiking).Name("Rando (km)");
+                    series.Area(model => model.Running).Name("Course (km)");
+                    series.Area(model => model.Walking).Name("Marche (km)");
+                })
+                .Legend(legend => legend
+                    .Position(ChartLegendPosition.Bottom)
+                )
+                .CategoryAxis(axis => axis
+                    .Type(ChartCategoryAxisType.Date)
+                    .Field("MonthDate")
+                    .Labels(labels => labels.Format("yyyy-MM"))
+                    .Line(line => line.Visible(false))
+                    .MajorGridLines(lines => lines.Visible(false))
+                    //.Justify()
+                )
+            )
         </div>
     </div>
 </div>
