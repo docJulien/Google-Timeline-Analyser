@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using APS.Model;
 using APS.Model.AccountViewModels;
 using APS.Services;
@@ -318,16 +314,20 @@ namespace APS.Controllers
             return View();
         }
 
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register(RegisterViewModel model)
         {
-            foreach (var error in result.Errors)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                bool success = true; //todo Utilisateurs.Register(model);
+                if (success)
+                    return View("RegisterConfirmation");
             }
+            return View(model);
         }
 
+        #region Helpers
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
